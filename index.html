@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F3F4F1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="คลังไอเดีย">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234F7F6D'/%3E%3Cpath d='M14 26h36c0 12-8 22-18 22S14 38 14 26z' fill='%23F3F4F1'/%3E%3Crect x='12' y='22' width='40' height='5' rx='2.5' fill='%23F3F4F1'/%3E%3C/svg%3E">
+<title>คลังไอเดียเซรามิก</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a kiln-shelf wall — sticky glaze-strip header, tag rail, masonry of reference photos */
+:root{
+  --bg:#F3F4F1; --surface:#FFFFFF; --ink:#1D2320; --muted:#6B746F; --line:#DDE1DC;
+  --celadon:#4F7F6D; --celadon-soft:#E1ECE6; --iron:#9A5B34; --danger:#B03A2E;
+  --display:"Noto Serif Thai", Georgia, serif;
+  --body:"IBM Plex Sans Thai", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121514; --surface:#1B1F1D; --ink:#E7ECE9; --muted:#929C97; --line:#2B312E;
+  --celadon:#8DBBA8; --celadon-soft:#1F2D27; --iron:#D49067; --danger:#E7786B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121514; --surface:#1B1F1D; --ink:#E7ECE9; --muted:#929C97; --line:#2B312E;
+  --celadon:#8DBBA8; --celadon-soft:#1F2D27; --iron:#D49067; --danger:#E7786B; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-size:15px}
+img{max-width:100%}
+[hidden]{display:none!important}
+.login{min-height:70vh;display:grid;place-items:center;padding-block:40px}
+.login form{width:100%;max-width:360px;display:flex;flex-direction:column;gap:12px}
+.login h2{font-family:var(--display);margin:0;font-size:1.3rem}
+.login p{margin:0;color:var(--muted);font-size:14px}
+.signout{background:none;border:0;color:var(--muted);font-size:12px;text-decoration:underline;padding:0;margin-left:8px}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--celadon);outline-offset:2px}
+
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.head{display:flex;align-items:center;gap:12px;padding-block:14px}
+.brand{flex:1;min-width:0}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(1.25rem,3.5vw,1.6rem);line-height:1.2;margin:0;text-wrap:balance}
+.count{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.glaze{height:4px;background:linear-gradient(90deg,var(--celadon) 0 38%,var(--iron) 38% 46%,var(--ink) 46% 52%,var(--celadon-soft) 52%)}
+.add{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:10px 18px;font-weight:600;white-space:nowrap}
+.add svg{width:18px;height:18px}
+
+.tools{display:flex;flex-direction:column;gap:10px;padding-block:14px}
+.search{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+.rail{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.rail::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:13px;display:inline-flex;gap:6px;align-items:center}
+.chip .n{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--celadon);border-color:var(--celadon);color:var(--bg)}
+.chip[aria-pressed="true"] .n{color:inherit;opacity:.8}
+
+.grid{columns:2 160px;column-gap:12px;padding-bottom:48px}
+@media(min-width:720px){.grid{columns:4 200px;column-gap:14px}}
+.card{break-inside:avoid;margin:0 0 12px;display:block;width:100%;text-align:left;background:none;border:0;padding:0;position:relative}
+.card .ph{display:block;width:100%;border-radius:8px;background:var(--celadon-soft);object-fit:cover;max-width:100%}
+.card .cap{font-size:13px;color:var(--muted);margin:6px 2px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card .star{position:absolute;top:8px;right:8px;background:var(--surface);color:var(--iron);border-radius:999px;width:26px;height:26px;display:grid;place-items:center;font-size:14px;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.card:hover .ph{filter:brightness(.94)}
+
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:40px 20px;text-align:center;color:var(--muted);margin-block:8px 48px}
+.empty h2{font-family:var(--display);color:var(--ink);font-size:1.25rem;margin:0 0 6px}
+.empty p{max-width:42ch;margin:0 auto 18px}
+.notice{background:var(--celadon-soft);border-radius:10px;padding:10px 14px;font-size:14px;margin-block:12px}
+
+/* sheets */
+.veil{position:fixed;inset:0;z-index:20;background:rgba(10,12,11,.55);display:flex;align-items:flex-end;justify-content:center}
+@media(min-width:720px){.veil{align-items:center;padding:24px}}
+.sheet{background:var(--surface);width:100%;max-width:640px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:20px max(18px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:14px}
+@media(min-width:720px){.sheet{border-radius:18px}}
+.sheet h3{font-family:var(--display);font-size:1.2rem;margin:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.x{background:none;border:0;font-size:22px;line-height:1;color:var(--muted);padding:4px 8px}
+.thumbs{display:flex;gap:8px;overflow-x:auto}
+.thumbs img{width:84px;height:84px;object-fit:cover;border-radius:8px;flex:none}
+.pick{border:1.5px dashed var(--line);border-radius:12px;padding:22px;text-align:center;color:var(--muted);background:none;width:100%}
+label.l{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:6px}
+textarea,input.f{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg)}
+textarea{min-height:80px;resize:vertical}
+.sugg{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.sugg .chip{font-size:12px;padding:4px 10px}
+.primary{background:var(--celadon);color:var(--bg);border:0;border-radius:10px;padding:12px;font-weight:600;width:100%}
+.primary:disabled{opacity:.5;cursor:default}
+.status{font-size:13px;color:var(--muted);min-height:1.2em}
+.status.err{color:var(--danger)}
+
+.detail img{width:100%;border-radius:10px;background:var(--celadon-soft);max-height:62vh;object-fit:contain}
+.meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.tagline{display:flex;flex-wrap:wrap;gap:6px}
+.tagline span{background:var(--celadon-soft);color:var(--celadon);border-radius:999px;padding:3px 10px;font-size:13px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.ghost{background:none;border:1px solid var(--line);border-radius:10px;padding:9px 14px}
+.ghost.danger{color:var(--danger);border-color:currentColor}
+.src{color:var(--celadon);word-break:break-all;font-size:14px}
+.th{position:relative;flex:none}
+.thb{border:0;padding:0;background:none;display:block;position:relative}
+.thb span{position:absolute;left:4px;bottom:4px;background:var(--surface);color:var(--ink);font-size:11px;border-radius:999px;padding:1px 7px}
+.thx{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:999px;border:0;background:var(--ink);color:var(--bg);font-size:14px;line-height:1}
+.hint{font-size:13px;color:var(--muted);margin:0}
+.toggle{display:flex;gap:8px;align-items:center;font-size:14px}
+.toggle input{width:18px;height:18px;accent-color:var(--celadon)}
+.thb.check span{background:var(--iron);color:var(--bg)}
+.thb.working img{opacity:.45}
+.batch{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;margin-block:0 14px}
+.batch p{margin:0;font-size:14px;min-width:0;flex:1 1 220px}
+.batch .primary{width:auto;padding:10px 16px}
+.card .warn{position:absolute;top:8px;left:8px;background:var(--iron);color:var(--bg);border-radius:999px;font-size:11px;padding:2px 8px}
+#cropVeil,#eraseVeil{z-index:30}
+.estage{position:relative;display:inline-block;max-width:100%;touch-action:none;line-height:0}
+.estage canvas{display:block;max-width:100%;max-height:58vh;width:auto;height:auto}
+#eMask{position:absolute;inset:0;width:100%;height:100%;max-height:none;opacity:.55;cursor:crosshair}
+.stagewrap{display:flex;justify-content:center;background:var(--celadon-soft);border-radius:10px;padding:10px}
+.stage{position:relative;display:inline-block;max-width:100%;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none}
+.stage img{display:block;max-width:100%;max-height:58vh;pointer-events:none;-webkit-user-drag:none}
+.box{position:absolute;box-shadow:0 0 0 9999px rgba(0,0,0,.58);outline:2px solid rgba(255,255,255,.95);cursor:move}
+.box::before,.box::after{content:"";position:absolute;inset:33.33% 0;border-block:1px solid rgba(255,255,255,.35);pointer-events:none}
+.box::after{inset:0 33.33%;border-block:0;border-inline:1px solid rgba(255,255,255,.35)}
+.h{position:absolute;width:32px;height:32px;margin:-16px 0 0 -16px;display:grid;place-items:center;z-index:1}
+.h::before{content:"";width:14px;height:14px;background:#fff;border-radius:3px;box-shadow:0 0 0 1px rgba(0,0,0,.4)}
+.h[data-h="n"]::before,.h[data-h="s"]::before{width:26px;height:6px}
+.h[data-h="e"]::before,.h[data-h="w"]::before{width:6px;height:26px}
+.h[data-h="nw"]{left:0;top:0;cursor:nwse-resize}.h[data-h="n"]{left:50%;top:0;cursor:ns-resize}.h[data-h="ne"]{left:100%;top:0;cursor:nesw-resize}
+.h[data-h="e"]{left:100%;top:50%;cursor:ew-resize}.h[data-h="se"]{left:100%;top:100%;cursor:nwse-resize}.h[data-h="s"]{left:50%;top:100%;cursor:ns-resize}
+.h[data-h="sw"]{left:0;top:100%;cursor:nesw-resize}.h[data-h="w"]{left:0;top:50%;cursor:ew-resize}
+@media(prefers-reduced-motion:no-preference){.sheet{animation:up .22s ease-out}@keyframes up{from{transform:translateY(16px);opacity:.6}}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap head">
+    <div class="brand">
+      <h1>คลังไอเดียเซรามิก</h1>
+      <div class="count"><span id="count">กำลังเปิดคลัง…</span><button class="signout" id="importBtn" hidden>นำเข้าจากคลังเดิม (.zip)</button><button class="signout" id="signout" hidden>ออกจากระบบ</button><input type="file" id="importFile" accept=".zip,application/zip" hidden></div>
+    </div>
+    <button class="add" id="addBtn" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>เก็บไอเดีย</button>
+  </div>
+  <div class="glaze"></div>
+</header>
+
+<main class="wrap">
+  <div class="login" id="login" hidden>
+    <form id="loginForm">
+      <h2>เปิดคลังไอเดีย</h2>
+      <p>ใส่รหัสผ่านของคลัง เครื่องนี้จะจำไว้ให้ ไม่ต้องใส่ซ้ำ</p>
+      <input class="search" id="pass" type="password" autocomplete="current-password" placeholder="รหัสผ่าน" required>
+      <button class="primary" type="submit">เข้าคลัง</button>
+      <div class="status" id="loginStatus"></div>
+    </form>
+  </div>
+  <div class="tools" id="tools" hidden>
+    <input class="search" id="q" type="search" placeholder="ค้นหาจากโน้ตหรือแท็ก เช่น เคลือบขี้เถ้า, katakuchi">
+    <div class="rail" id="rail"></div>
+  </div>
+  <div id="notice"></div>
+  <div id="batchBox"></div>
+  <div class="grid" id="grid"></div>
+  <div id="emptyBox"></div>
+</main>
+
+<div class="veil" id="addVeil" hidden>
+  <div class="sheet" role="dialog" aria-label="เก็บไอเดียใหม่">
+    <div class="row"><h3>เก็บไอเดียใหม่</h3><button class="x" data-close aria-label="ปิด">×</button></div>
+    <input type="file" id="file" accept="image/*" multiple hidden>
+    <button class="pick" id="pickBtn">แตะเพื่อเลือกรูป (เลือกได้หลายรูป)<br><small>บนคอมวางรูปด้วย Ctrl/⌘+V ก็ได้</small></button>
+    <div class="thumbs" id="thumbs"></div>
+    <label class="toggle"><input type="checkbox" id="autoCut" checked> ตัดกรอบหน้าจอแคปออกอัตโนมัติ ให้เหลือแต่รูป</label>
+    <input type="checkbox" id="autoWm" hidden>
+    <p class="hint" id="cropHint" hidden>ระบบตัดให้แล้ว ถ้ายังติดอะไรมา แตะที่รูปเพื่อปรับเอง</p>
+    <div>
+      <label class="l" for="note">โน้ต</label>
+      <textarea id="note" placeholder="เห็นอะไรในรูปนี้ เช่น ขอบปากเทลาดสวย อยากลองกับชามมัทฉะรุ่นใหม่"></textarea>
+    </div>
+    <div>
+      <label class="l" for="tagIn">แท็ก (คั่นด้วยจุลภาค)</label>
+      <input class="f" id="tagIn" placeholder="เช่น เคลือบ, ทรงชาม">
+      <div class="sugg" id="sugg"></div>
+    </div>
+    <div>
+      <label class="l" for="srcIn">เจอที่ไหน</label>
+      <input class="f" id="srcIn" placeholder="ลิงก์ Pinterest / IG หรือชื่อร้าน งานแฟร์">
+    </div>
+    <button class="primary" id="saveBtn" disabled>บันทึก</button>
+    <div class="status" id="status"></div>
+  </div>
+</div>
+
+<div class="veil" id="cropVeil" hidden>
+  <div class="sheet" role="dialog" aria-label="ครอปรูป">
+    <div class="row"><h3>ครอปรูป</h3><button class="x" id="cropX" aria-label="ปิด">×</button></div>
+    <p class="hint">ลากขอบ มุม หรือกลางกรอบเพื่อปรับเอง หรือกด "ตัดอัตโนมัติ" ให้ระบบหาขอบรูปให้</p>
+    <div class="stagewrap"><div class="stage" id="stage">
+      <img id="cropImg" alt="" crossorigin="anonymous">
+      <div class="box" id="box">
+        <span class="h" data-h="nw"></span><span class="h" data-h="n"></span><span class="h" data-h="ne"></span><span class="h" data-h="e"></span>
+        <span class="h" data-h="se"></span><span class="h" data-h="s"></span><span class="h" data-h="sw"></span><span class="h" data-h="w"></span>
+      </div>
+    </div></div>
+    <div class="actions"><button class="ghost" id="cropAuto" style="flex:1">🪄 ตัดอัตโนมัติ</button><button class="ghost" id="cropAI" style="flex:1" hidden>✨ ให้ AI หารูป</button><button class="ghost" id="cropReset">รีเซ็ต</button></div>
+    <button class="primary" id="cropOk">ใช้ภาพนี้</button>
+    <div class="status" id="cropStatus"></div>
+  </div>
+</div>
+
+<div class="veil" id="eraseVeil" hidden>
+  <div class="sheet" role="dialog" aria-label="ลบลายน้ำ">
+    <div class="row"><h3>ลบลายน้ำ</h3><button class="x" id="eraseX" aria-label="ปิด">×</button></div>
+    <p class="hint">ใช้นิ้วทาสีแดงทับลายน้ำ โลโก้ หรือตัวอักษรที่ไม่ต้องการ แล้วกด "ลบส่วนที่ทา"</p>
+    <div class="stagewrap"><div class="estage" id="estage"><canvas id="eCan"></canvas><canvas id="eMask"></canvas></div></div>
+    <div class="actions">
+      <button class="ghost" id="eAI" style="flex:1" hidden>✨ ให้ AI หาลายน้ำ</button>
+      <label class="toggle" style="flex:1 1 160px">แปรง <input type="range" id="eSize" min="6" max="80" value="24" style="flex:1;width:auto"></label>
+      <button class="ghost" id="eClear">ล้างที่ทา</button>
+    </div>
+    <div class="actions"><button class="ghost" id="eRun" style="flex:1">🧽 ลบส่วนที่ทา</button><button class="ghost" id="eUndo" disabled>↶ ย้อน</button></div>
+    <button class="primary" id="eSave" disabled>ใช้ภาพนี้</button>
+    <div class="status" id="eStatus"></div>
+  </div>
+</div>
+
+<div class="veil" id="detVeil" hidden>
+  <div class="sheet detail" role="dialog" aria-label="รายละเอียดไอเดีย" id="det"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const PRESET=["ทรง","เคลือบ","สีดิน","ผิวสัมผัส","ลวดลาย","ขอบปาก","ฐานชาม","ชามมัทฉะ","ครก","แก้ว","จาน","แจกัน","แพ็กเกจ","จัดวาง"];
+const $=s=>document.querySelector(s);
+let db=null, assets=null, ideas=[], activeTag=null, favOnly=false, query="", pending=[], canWrite=false;
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function parseTags(s){return [...new Set(s.split(/[,，]/).map(t=>t.trim()).filter(Boolean))].slice(0,12)}
+function fmtDate(ms){try{return new Date(ms).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"2-digit"})}catch(e){return ""}}
+
+function filtered(){
+  const q=query.toLowerCase();
+  return ideas.filter(i=>(!activeTag||(i.tags||[]).includes(activeTag))&&(!favOnly||i.fav)&&
+    (!q||(i.note||"").toLowerCase().includes(q)||(i.tags||[]).some(t=>t.toLowerCase().includes(q))||(i.source||"").toLowerCase().includes(q)));
+}
+
+function render(){
+  $("#count").textContent=ideas.length?`${ideas.length} ไอเดีย · ${ideas.filter(i=>i.fav).length} ที่ชอบ`:"ยังไม่มีไอเดียในคลัง";
+  $("#tools").hidden=!ideas.length;
+  // tag rail
+  const counts={}; ideas.forEach(i=>(i.tags||[]).forEach(t=>counts[t]=(counts[t]||0)+1));
+  const tags=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  $("#rail").innerHTML=
+    `<button class="chip" data-all aria-pressed="${!activeTag&&!favOnly}">ทั้งหมด <span class="n">${ideas.length}</span></button>`+
+    `<button class="chip" data-fav aria-pressed="${favOnly}">★ ที่ชอบ</button>`+
+    tags.map(([t,n])=>`<button class="chip" data-tag="${esc(t)}" aria-pressed="${activeTag===t}">${esc(t)} <span class="n">${n}</span></button>`).join("");
+  const list=filtered();
+  $("#grid").innerHTML=list.map(i=>{
+    const ar=i.w&&i.h?`aspect-ratio:${i.w}/${i.h};`:"min-height:140px;";
+    return `<button class="card" data-id="${esc(i.id)}"><img class="ph" loading="lazy" style="${ar}" src="${esc(blobUrl(i.asset))}" alt="${esc(i.note||"ไอเดียเซรามิก")}">${i.fav?'<span class="star">★</span>':""}${i.cut==="check"?'<span class="warn">ตัดเอง</span>':""}${i.note?`<span class="cap">${esc(i.note)}</span>`:""}</button>`}).join("");
+  renderBatch();
+  const eb=$("#emptyBox");
+  if(!ideas.length&&canWrite){
+    eb.innerHTML=`<div class="empty"><h2>ชั้นวางยังว่าง</h2><p>เจอทรงชาม สีเคลือบ หรือลวดลายที่ชอบเมื่อไหร่ ถ่ายหรือแคปแล้วเก็บไว้ที่นี่ ติดแท็กไว้ แล้วค่อยกลับมาไล่ดูตอนออกแบบ</p>${canWrite?'<button class="add" id="emptyAdd">เก็บไอเดียแรก</button>':""}</div>`;
+    const b=$("#emptyAdd"); if(b) b.onclick=openAdd;
+  } else if(ideas.length&&!list.length){
+    eb.innerHTML=`<div class="empty"><p>ไม่มีไอเดียที่ตรงกับตัวกรองนี้</p></div>`;
+  } else eb.innerHTML="";
+}
+
+$("#rail").addEventListener("click",e=>{
+  const c=e.target.closest(".chip"); if(!c) return;
+  if(c.dataset.all!==undefined){activeTag=null;favOnly=false}
+  else if(c.dataset.fav!==undefined){favOnly=!favOnly}
+  else {activeTag=activeTag===c.dataset.tag?null:c.dataset.tag}
+  render();
+});
+$("#q").addEventListener("input",e=>{query=e.target.value.trim();render()});
+
+/* ---------- add flow ---------- */
+function openAdd(){pending=[];$("#thumbs").innerHTML="";$("#note").value="";$("#tagIn").value="";$("#srcIn").value="";setStatus("");updateSave();renderSugg();$("#addVeil").hidden=false}
+function closeAll(){if(saving) return;saveQueued=false;$("#addVeil").hidden=true;$("#detVeil").hidden=true;pending.forEach(dropPending);pending=[]}
+["#addVeil","#detVeil"].forEach(s=>{const v=$(s);v.addEventListener("click",e=>{if(e.target===v||e.target.closest("[data-close]"))closeAll()})});
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return; if(!$("#cropVeil").hidden) closeCrop(); else closeAll()});
+$("#addBtn").onclick=openAdd;
+try{const v=localStorage.getItem("autoCut");if(v!==null)$("#autoCut").checked=v==="1"}catch(e){}
+$("#autoCut").onchange=e=>{try{localStorage.setItem("autoCut",e.target.checked?"1":"0")}catch(_){}};
+
+$("#pickBtn").onclick=()=>$("#file").click();
+$("#file").onchange=e=>{addFiles([...e.target.files]);e.target.value=""};
+document.addEventListener("paste",e=>{
+  if(!canWrite) return;
+  const files=[...(e.clipboardData?.files||[])].filter(f=>f.type.startsWith("image/"));
+  if(!files.length) return;
+  if($("#addVeil").hidden) openAdd();
+  addFiles(files);
+});
+function addFiles(files){
+  const fresh=files.filter(f=>f.type.startsWith("image/")||!f.type).map(f=>{
+    const u=URL.createObjectURL(f);
+    return {orig:f,origURL:u,file:f,preview:u,rect:null,state:"none"};
+  });
+  pending.push(...fresh); renderThumbs();
+  if($("#autoCut").checked) runAuto(fresh); else if($("#autoWm").checked) runWm(fresh);
+}
+async function runAuto(list){
+  const wmOn=$("#autoWm").checked;
+  for(const p of list){ p.state="working"; if(wmOn) p.queued=true; }
+  renderThumbs();
+  for(const p of list){
+    if(!pending.includes(p)) continue;
+    try{
+      const img=await loadImg(p.origURL);
+      let rect=null, how="auto";
+      const res=detectPhoto(img);
+      if(res.ok) rect=res.full?null:res.rect;
+      else { rect=await aiDetect(img).catch(()=>null); how="ai"; }
+      if(res.ok&&res.full){ p.state="none"; }
+      else if(rect){ await applyRect(p,img,rect); p.state=how; }
+      else p.state="check";
+    }catch(e){ p.state="check"; }
+    renderThumbs();
+  }
+  if($("#autoWm").checked) await runWm(list);
+}
+async function runWm(list){
+  for(const p of list) p.queued=true;
+  renderThumbs();
+  for(const p of list){
+    if(!pending.includes(p)||p.state==="check"||aiOff){p.queued=false;renderThumbs();continue}
+    p.queued=false;
+    const keep=p.state; p.state="working"; renderThumbs();
+    try{
+      const img=await loadImg(p.preview), out=await autoErase(img);
+      if(out){ if(p.preview!==p.origURL) URL.revokeObjectURL(p.preview); p.file=out.blob; p.preview=URL.createObjectURL(out.blob); p.wm=true; p.state="wm"; }
+      else { p.wm="none"; p.state=keep; }
+    }catch(e){ p.state=keep; }
+    renderThumbs();
+  }
+}
+const LABEL={wm:"✨ ลบลายน้ำแล้ว",working:"กำลังจัดการ…",auto:"✂ ตัดแล้ว",ai:"✨ AI ตัดแล้ว",manual:"✂ ปรับเองแล้ว",none:"✂ ครอป",check:"⚠ ตัดเองตรงนี้"};
+function renderThumbs(){
+  $("#thumbs").innerHTML=pending.map((p,k)=>`<div class="th"><button class="thb ${p.state}" data-i="${k}" aria-label="ปรับครอปรูปที่ ${k+1}"><img src="${p.preview}" alt=""><span>${LABEL[p.state]||"✂ ครอป"}</span></button><button class="thx" data-rm="${k}" aria-label="เอารูปนี้ออก">×</button></div>`).join("");
+  $("#cropHint").hidden=!pending.length;
+  updateSave();
+}
+function dropPending(p){ if(p.preview!==p.origURL) URL.revokeObjectURL(p.preview); URL.revokeObjectURL(p.origURL); }
+$("#thumbs").addEventListener("click",e=>{
+  const rm=e.target.closest("[data-rm]");
+  if(rm){const p=pending.splice(+rm.dataset.rm,1)[0];if(p)dropPending(p);renderThumbs();return}
+  const b=e.target.closest("[data-i]"); if(!b||saving) return;
+  const p=pending[+b.dataset.i]; if(p.state==="working") return;
+  openCrop(p.origURL,{kind:"pending",idx:+b.dataset.i},p.rect);
+});
+async function applyRect(p,img,rect){
+  const out=await cropToBlob(img,rect);
+  if(p.preview!==p.origURL) URL.revokeObjectURL(p.preview);
+  p.file=out.blob; p.preview=URL.createObjectURL(out.blob); p.rect=rect;
+}
+function withTimeout(pr,ms,code){let t;return Promise.race([pr,new Promise((_,rej)=>{t=setTimeout(()=>rej({code}),ms)})]).finally(()=>clearTimeout(t))}
+let aiOff=false; // AI unavailable or refused this visit: stop asking for every picture
+function noteAiErr(e){if(e?.code==="no_ai"||e?.code==="not_granted"||e?.code==="rate_limited"||e?.code==="ai_timeout")aiOff=true}
+function loadImg(src){return new Promise((res,rej)=>{const i=new Image();i.crossOrigin="anonymous";i.onload=()=>res(i);i.onerror=rej;i.src=src})}
+
+/* ---------- photo detection: find the photo inside a screenshot ---------- */
+function getMask(img){
+  const W=img.naturalWidth,H=img.naturalHeight, k=Math.min(1,400/W), w=Math.max(8,Math.round(W*k)), h=Math.max(8,Math.round(H*k));
+  const c=document.createElement("canvas");c.width=w;c.height=h;
+  const ctx=c.getContext("2d",{willReadFrequently:true});ctx.drawImage(img,0,0,w,h);
+  const d=ctx.getImageData(0,0,w,h).data, n=w*h;
+  // UI background = most common colour, sampled along the screenshot's outer frame
+  const hist=new Map(); const bump=i=>{const key=(d[i]>>4)<<8|(d[i+1]>>4)<<4|(d[i+2]>>4);hist.set(key,(hist.get(key)||0)+1)};
+  for(let x=0;x<w;x++){bump(x*4);bump(((h-1)*w+x)*4);bump((Math.floor(h*.5)*w+x)*4)}
+  for(let y=0;y<h;y++){bump(y*w*4);bump((y*w+w-1)*4)}
+  let bk=0,bc=-1,tot=0;hist.forEach((v,key)=>{tot+=v;if(v>bc){bc=v;bk=key}});
+  const br=((bk>>8)&15)*16+8,bg=((bk>>4)&15)*16+8,bb=(bk&15)*16+8;
+  const m=new Uint8Array(n);
+  for(let i=0;i<n;i++){const j=i*4;m[i]=(Math.abs(d[j]-br)+Math.abs(d[j+1]-bg)+Math.abs(d[j+2]-bb))>48?1:0}
+  return {m,w,h,frameShare:bc/tot};
+}
+function snapBox(M,b,rad){
+  const {m,w,h}=M; let {x0,y0,x1,y1}=b;
+  const rowF=(y,a,z)=>{if(y<0||y>=h)return 0;let s=0;for(let x=a;x<z;x++)s+=m[y*w+x];return s/Math.max(1,z-a)};
+  const colF=(x,a,z)=>{if(x<0||x>=w)return 0;let s=0;for(let y=a;y<z;y++)s+=m[y*w+x];return s/Math.max(1,z-a)};
+  // pick the position in [from,to] where content density jumps the most
+  const pick=(from,to,score,fallback)=>{let best=-Infinity,at=fallback;for(let t=from;t<=to;t++){const v=score(t);if(v>best){best=v;at=t}}return at};
+  const ny0=pick(Math.max(0,y0-rad),Math.min(h-1,y0+rad),y=>rowF(y,x0,x1)-rowF(y-1,x0,x1),y0);
+  const ny1=pick(Math.max(0,y1-1-rad),Math.min(h-1,y1-1+rad),y=>rowF(y,x0,x1)-rowF(y+1,x0,x1),y1-1)+1;
+  y0=ny0;y1=Math.max(ny1,y0+1);
+  const nx0=pick(Math.max(0,x0-rad),Math.min(w-1,x0+rad),x=>colF(x,y0,y1)-colF(x-1,y0,y1),x0);
+  const nx1=pick(Math.max(0,x1-1-rad),Math.min(w-1,x1-1+rad),x=>colF(x,y0,y1)-colF(x+1,y0,y1),x1-1)+1;
+  x0=nx0;x1=Math.max(nx1,x0+1);
+  if(x1-x0<4||y1-y0<4) return b;
+  return {x0,y0,x1,y1};
+}
+function detectPhoto(img){
+  const M=getMask(img),{m,w,h}=M, R=4, W1=w+1;
+  if(M.frameShare<.3) return {ok:true,full:true}; // no flat app frame around it: already a clean photo
+  // integral image -> "dense" pixels: almost every neighbour differs from the UI background (photos are dense, text is sparse)
+  const I=new Uint32Array((w+1)*(h+1));
+  for(let y=0;y<h;y++){let s=0;for(let x=0;x<w;x++){s+=m[y*w+x];I[(y+1)*W1+x+1]=I[y*W1+x+1]+s}}
+  const dense=new Uint8Array(w*h);
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    const a=Math.max(0,x-R),b=Math.max(0,y-R),c=Math.min(w,x+R+1),e=Math.min(h,y+R+1);
+    const s=I[e*W1+c]-I[b*W1+c]-I[e*W1+a]+I[b*W1+a];
+    dense[y*w+x]=s>=.82*(c-a)*(e-b)?1:0;
+  }
+  // largest connected dense region = the photo
+  const seen=new Uint8Array(w*h), st=new Int32Array(w*h); let best=null;
+  for(let s0=0;s0<w*h;s0++){
+    if(!dense[s0]||seen[s0]) continue;
+    let top=0,size=0,x0=w,y0=h,x1=0,y1=0; st[top++]=s0; seen[s0]=1;
+    while(top){const i=st[--top],x=i%w,y=(i-x)/w;size++;
+      if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;
+      if(x>0&&dense[i-1]&&!seen[i-1]){seen[i-1]=1;st[top++]=i-1}
+      if(x<w-1&&dense[i+1]&&!seen[i+1]){seen[i+1]=1;st[top++]=i+1}
+      if(y>0&&dense[i-w]&&!seen[i-w]){seen[i-w]=1;st[top++]=i-w}
+      if(y<h-1&&dense[i+w]&&!seen[i+w]){seen[i+w]=1;st[top++]=i+w}}
+    if(!best||size>best.size) best={size,x0,y0,x1:x1+1,y1:y1+1};
+  }
+  if(!best) return {ok:false};
+  let b={x0:Math.max(0,best.x0-R),y0:Math.max(0,best.y0-R),x1:Math.min(w,best.x1+R),y1:Math.min(h,best.y1+R)};
+  const fill=best.size/((best.x1-best.x0)*(best.y1-best.y0));
+  b=snapBox(M,b,R*2);
+  const area=(b.x1-b.x0)*(b.y1-b.y0)/(w*h);
+  if(area>.96) return {ok:true,full:true};
+  if(area<.05||fill<.55) return {ok:false};
+  return {ok:true,full:false,rect:{x:b.x0/w,y:b.y0/h,w:(b.x1-b.x0)/w,h:(b.y1-b.y0)/h}};
+}
+let samplePromise=null;
+function getSample(){ if(!samplePromise) samplePromise=(window.claude?.use?.("sample")??Promise.resolve(null)).catch(()=>null); return samplePromise; }
+async function aiDetect(img){
+  if(aiOff) throw {code:"no_ai"};
+  const sample=await withTimeout(getSample(),12000,"no_ai"); if(!sample) throw {code:"no_ai"};
+  const lim=await sample.limits().catch(()=>null); if(!lim?.images) throw {code:"no_ai"};
+  const k=Math.min(1,1024/Math.max(img.naturalWidth,img.naturalHeight));
+  const c=document.createElement("canvas");c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);
+  c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+  const blob=await new Promise(r=>c.toBlob(r,"image/jpeg",.85));
+  const j=await withTimeout(sample.json(
+    "The attached image is a screenshot from a phone or web page (Pinterest, Instagram, Facebook, TikTok, a shop page) that shows a photo of ceramics or another design reference. "+
+    "Find the main photograph itself and give its bounding box, excluding ALL app interface: status bar, navigation bars, usernames, avatars, captions, buttons, like counts, price tags, page names, logos and watermark bars that sit outside the photo. "+
+    "If several photos are shown, choose the largest one. Reply with JSON only: {\"x0\":number,\"y0\":number,\"x1\":number,\"y1\":number} as fractions from 0 to 1 of the image width and height (x0,y0 = top-left corner).",
+    {images:[blob],modelTier:"default"}).catch(e=>{throw e}), 45000, "ai_timeout").catch(e=>{noteAiErr(e);throw e});
+  const n=v=>typeof v==="number"&&isFinite(v);
+  if(!j||![j.x0,j.y0,j.x1,j.y1].every(n)) throw {code:"bad_ai"};
+  let x0=clamp(Math.min(j.x0,j.x1),0,1),x1=clamp(Math.max(j.x0,j.x1),0,1),y0=clamp(Math.min(j.y0,j.y1),0,1),y1=clamp(Math.max(j.y0,j.y1),0,1);
+  if(x1-x0<.05||y1-y0<.05) throw {code:"bad_ai"};
+  // tighten the AI's estimate onto the photo's real edges
+  const M=getMask(img), b=snapBox(M,{x0:Math.round(x0*M.w),y0:Math.round(y0*M.h),x1:Math.round(x1*M.w),y1:Math.round(y1*M.h)},Math.round(M.w*.03));
+  return {x:b.x0/M.w,y:b.y0/M.h,w:(b.x1-b.x0)/M.w,h:(b.y1-b.y0)/M.h};
+}
+
+/* ---------- crop ---------- */
+let crop=null, drag=null;
+const MIN=.06, clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function openCrop(src,target,init){
+  crop={target,r:init?{...init}:{x:0,y:0,w:1,h:1}};
+  const img=$("#cropImg"); img.src=src;
+  $("#cropStatus").textContent="";$("#cropOk").disabled=false;
+  $("#cropVeil").hidden=false; drawBox();
+  getSample().then(s=>s?s.limits().catch(()=>null):null).then(l=>{$("#cropAI").hidden=!l?.images});
+}
+function cropMsg(t,err){const s=$("#cropStatus");s.textContent=t;s.className="status"+(err?" err":"")}
+async function readyImg(){const img=$("#cropImg");if(!img.complete||!img.naturalWidth)await new Promise(r=>img.addEventListener("load",r,{once:true}));return img}
+$("#cropAuto").onclick=async()=>{
+  if(!crop) return; const img=await readyImg();
+  const res=detectPhoto(img);
+  if(res.ok&&res.full){crop.r={x:0,y:0,w:1,h:1};drawBox();cropMsg("รูปนี้เป็นรูปล้วนอยู่แล้ว ไม่มีกรอบให้ตัด");return}
+  if(res.ok){crop.r=res.rect;drawBox();cropMsg("ตัดให้แล้ว ถ้ายังไม่พอดีลองกด \"ให้ AI หารูป\" หรือลากปรับเอง");return}
+  cropMsg("หาขอบรูปไม่เจอ รูปกับพื้นหลังเพจอาจสีใกล้กัน ลองลากปรับเอง",true);
+};
+$("#cropAI").onclick=async()=>{
+  if(!crop||crop.busy) return; const img=await readyImg();
+  crop.busy=true;$("#cropAI").disabled=true;cropMsg("AI กำลังหารูปในภาพแคป…");
+  try{crop.r=await aiDetect(img);drawBox();cropMsg("AI หาให้แล้ว ตรวจดูแล้วกด \"ใช้ภาพนี้\"")}
+  catch(e){cropMsg(e?.code==="rate_limited"?"ใช้ AI ถี่เกินไป รอสักครู่":e?.code==="not_granted"||e?.code==="no_ai"?"ยังไม่ได้อนุญาตให้ใช้ AI ในหน้านี้":"AI หาไม่สำเร็จ ลองลากปรับเอง",true)}
+  finally{if(crop){crop.busy=false};$("#cropAI").disabled=false}
+};
+function closeCrop(){if(crop?.busy)return;$("#cropVeil").hidden=true;crop=null}
+function drawBox(){const r=crop.r,b=$("#box");b.style.left=r.x*100+"%";b.style.top=r.y*100+"%";b.style.width=r.w*100+"%";b.style.height=r.h*100+"%"}
+$("#cropX").onclick=closeCrop;
+$("#cropReset").onclick=()=>{if(!crop)return;crop.r={x:0,y:0,w:1,h:1};drawBox()};
+const stage=$("#stage");
+stage.addEventListener("pointerdown",e=>{
+  if(!crop) return;
+  const h=e.target.closest("[data-h]"), inBox=e.target.closest("#box");
+  if(!h&&!inBox) return;
+  e.preventDefault(); stage.setPointerCapture(e.pointerId);
+  drag={mode:h?h.dataset.h:"move",px:e.clientX,py:e.clientY,r0:{...crop.r}};
+});
+stage.addEventListener("pointermove",e=>{
+  if(!drag) return;
+  const R=stage.getBoundingClientRect(), dx=(e.clientX-drag.px)/R.width, dy=(e.clientY-drag.py)/R.height, r0=drag.r0, m=drag.mode;
+  if(m==="move"){crop.r={...r0,x:clamp(r0.x+dx,0,1-r0.w),y:clamp(r0.y+dy,0,1-r0.h)}}
+  else{
+    let x=r0.x,y=r0.y,rt=r0.x+r0.w,bt=r0.y+r0.h;
+    if(m.includes("w")) x=clamp(r0.x+dx,0,rt-MIN);
+    if(m.includes("e")) rt=clamp(rt+dx,x+MIN,1);
+    if(m.includes("n")) y=clamp(r0.y+dy,0,bt-MIN);
+    if(m.includes("s")) bt=clamp(bt+dy,y+MIN,1);
+    crop.r={x,y,w:rt-x,h:bt-y};
+  }
+  drawBox();
+});
+const endDrag=()=>{drag=null};
+stage.addEventListener("pointerup",endDrag);stage.addEventListener("pointercancel",endDrag);
+
+async function cropToBlob(img,r){
+  const W=img.naturalWidth,H=img.naturalHeight;
+  const sx=Math.round(r.x*W),sy=Math.round(r.y*H),sw=Math.max(1,Math.round(r.w*W)),sh=Math.max(1,Math.round(r.h*H));
+  const k=Math.min(1,1800/Math.max(sw,sh)), w=Math.round(sw*k), h=Math.round(sh*k);
+  const c=document.createElement("canvas");c.width=w;c.height=h;
+  c.getContext("2d").drawImage(img,sx,sy,sw,sh,0,0,w,h);
+  let blob=await new Promise(res=>c.toBlob(res,"image/webp",.88));
+  if(!blob||blob.type!=="image/webp") blob=await new Promise(res=>c.toBlob(res,"image/jpeg",.9));
+  if(!blob) throw new Error("encode");
+  return {blob,w,h};
+}
+$("#cropOk").onclick=async()=>{
+  if(!crop) return;
+  const img=$("#cropImg"), st=$("#cropStatus");
+  if(!img.naturalWidth){st.textContent="รูปยังโหลดไม่เสร็จ รอสักครู่";st.className="status err";return}
+  const full=crop.r.x===0&&crop.r.y===0&&crop.r.w===1&&crop.r.h===1;
+  const t=crop.target;
+  if(full){
+    if(t.kind==="pending"){const p=pending[t.idx];if(p.preview!==p.origURL)URL.revokeObjectURL(p.preview);p.file=p.orig;p.preview=p.origURL;p.rect=null;p.state="none";renderThumbs()}
+    closeCrop();return;
+  }
+  crop.busy=true;$("#cropOk").disabled=true;
+  try{
+    if(t.kind==="pending"){
+      const p=pending[t.idx];
+      await applyRect(p,img,{...crop.r}); p.state="manual";
+      crop.busy=false; closeCrop(); renderThumbs();
+    }else{
+      st.textContent="กำลังบันทึกภาพที่ครอป…";st.className="status";
+      const i=ideas.find(x=>x.id===t.id);
+      await recut(i,img,{...crop.r});
+      crop.busy=false; closeCrop(); openDetail(i.id); render();
+    }
+  }catch(e){
+    crop.busy=false;$("#cropOk").disabled=false;
+    st.textContent=UPLOAD_MSG[e?.code]||"ครอปไม่สำเร็จ ลองใหม่อีกครั้ง";st.className="status err";
+  }
+};
+let saveQueued=false;
+function updateSave(){
+  const busy=pending.filter(p=>p.state==="working"||p.queued).length, n=pending.length;
+  $("#saveBtn").disabled=!n||saving||saveQueued;
+  $("#saveBtn").textContent=saveQueued?`จะบันทึกให้เองเมื่อเสร็จ (เหลือ ${busy} รูป)…`:(n>1?`บันทึก ${n} รูป`:"บันทึก");
+  if(!saving){
+    if(busy) setStatus(`กำลังตัดกรอบ เหลือ ${busy}/${n} รูป · ราว 10–30 วินาทีต่อรูป กดบันทึกได้เลย ระบบจะบันทึกให้เมื่อเสร็จ`);
+    else if($("#status").textContent.startsWith("กำลังตัด")) setStatus("");
+  }
+  if(saveQueued&&!busy){saveQueued=false;setTimeout(()=>$("#saveBtn").onclick(),0)}
+}
+function renderSugg(){
+  const used=new Set(ideas.flatMap(i=>i.tags||[]));
+  const list=[...used,...PRESET.filter(p=>!used.has(p))].slice(0,18);
+  $("#sugg").innerHTML=list.map(t=>`<button type="button" class="chip" data-t="${esc(t)}">${esc(t)}</button>`).join("");
+}
+$("#sugg").addEventListener("click",e=>{
+  const c=e.target.closest("[data-t]"); if(!c) return;
+  const cur=parseTags($("#tagIn").value); if(!cur.includes(c.dataset.t)) cur.push(c.dataset.t);
+  $("#tagIn").value=cur.join(", ");
+});
+function setStatus(t,err){const s=$("#status");s.textContent=t;s.className="status"+(err?" err":"")}
+
+async function compress(file){
+  try{
+    const bmp=await createImageBitmap(file);
+    const k=Math.min(1,1800/Math.max(bmp.width,bmp.height));
+    const w=Math.round(bmp.width*k),h=Math.round(bmp.height*k);
+    const c=document.createElement("canvas");c.width=w;c.height=h;
+    c.getContext("2d").drawImage(bmp,0,0,w,h);
+    let blob=await new Promise(r=>c.toBlob(r,"image/webp",.85));
+    if(!blob||blob.type!=="image/webp") blob=await new Promise(r=>c.toBlob(r,"image/jpeg",.86));
+    return {blob,w,h};
+  }catch(e){return {blob:file,w:0,h:0}}
+}
+const UPLOAD_MSG={too_large:"รูปใหญ่เกิน 20 MB",unsupported_type:"ไฟล์ประเภทนี้เก็บไม่ได้ ลองแคปหน้าจอเป็น JPG/PNG",quota_or_state:"พื้นที่เก็บรูปเต็มแล้ว ลองลบรูปที่ไม่ใช้ออกก่อน",rate_limited:"อัปโหลดถี่เกินไป รอสักครู่แล้วลองใหม่"};
+let saving=false;
+$("#saveBtn").onclick=async()=>{
+  if(!pending.length||!assets||!db||saving) return;
+  if(pending.some(p=>p.state==="working"||p.queued)){saveQueued=true;updateSave();return}
+  saving=true;updateSave();
+  const note=$("#note").value.trim(), tags=parseTags($("#tagIn").value), source=$("#srcIn").value.trim();
+  let done=0, failed=0, lastErr="";
+  for(const p of pending){
+    setStatus(`กำลังบันทึก ${done+1}/${pending.length}…`);
+    try{
+      const {blob,w,h}=await compress(p.file);
+      const up=await assets.upload(blob);
+      const doc={asset:up.id,w,h,note,tags,source,fav:false,createdAt:Date.now(),cut:p.state==="check"?"check":true,wm:p.wm||($("#autoWm").checked?"none":false)};
+      if(p.rect||p.wm===true){ // keep the uncropped screenshot so the crop can be undone or redone later
+        const o=await compress(p.orig); const ou=await assets.upload(o.blob);
+        Object.assign(doc,{origAsset:ou.id,origW:o.w,origH:o.h,rect:p.rect||null});
+      }
+      await db.collection("ideas").add(doc);
+      done++;
+    }catch(e){failed++;lastErr=UPLOAD_MSG[e?.code]||"บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง"}
+  }
+  saving=false;
+  if(failed){setStatus(`บันทึกได้ ${done} รูป · ไม่สำเร็จ ${failed} รูป: ${lastErr}`,true);pending=[];updateSave();return}
+  closeAll();
+};
+
+/* ---------- detail ---------- */
+let confirmDel=false;
+function openDetail(id){
+  const i=ideas.find(x=>x.id===id); if(!i) return; confirmDel=false;
+  const box=$("#det");
+  box.innerHTML=`<div class="row"><span class="meta">เก็บเมื่อ ${esc(fmtDate(i.createdAt))}</span><button class="x" data-close aria-label="ปิด">×</button></div>
+    <img src="${esc(blobUrl(i.asset))}" alt="${esc(i.note||"ไอเดียเซรามิก")}">
+    ${canWrite?`<div><label class="l" for="dNote">โน้ต</label><textarea id="dNote">${esc(i.note)}</textarea></div>
+      <div><label class="l" for="dTags">แท็ก</label><input class="f" id="dTags" value="${esc((i.tags||[]).join(", "))}"></div>
+      <div><label class="l" for="dSrc">เจอที่ไหน</label><input class="f" id="dSrc" value="${esc(i.source)}"></div>`
+    :`${i.note?`<p style="margin:0">${esc(i.note)}</p>`:""}<div class="tagline">${(i.tags||[]).map(t=>`<span>${esc(t)}</span>`).join("")}</div>`}
+    ${i.source&&/^https?:\/\//.test(i.source)?`<a class="src" href="${esc(i.source)}" target="_blank" rel="noopener">เปิดแหล่งที่มา ↗</a>`:""}
+    ${canWrite?`<div class="actions"><button class="primary" id="dSave" style="flex:1">บันทึกการแก้ไข</button><button class="ghost" id="dCrop">✂ ครอป</button><button class="ghost" id="dErase">🧽 ลบลายน้ำ</button>${i.origAsset?'<button class="ghost" id="dRestore">↩ รูปเดิม</button>':""}<button class="ghost" id="dFav">${i.fav?"★ เลิกชอบ":"☆ ชอบ"}</button><button class="ghost danger" id="dDel">ลบ</button></div><div class="status" id="dStatus"></div>`:""}`;
+  $("#detVeil").hidden=false;
+  if(!canWrite) return;
+  const ref=db.collection("ideas").doc(i.id), st=$("#dStatus");
+  $("#dCrop").onclick=()=>openCrop(blobUrl(i.origAsset||i.asset),{kind:"idea",id:i.id},i.origAsset?i.rect:null);
+  $("#dErase").onclick=()=>openEraser(i).catch(()=>{st.textContent="เปิดรูปไม่สำเร็จ";st.className="status err"});
+  const rb=$("#dRestore"); if(rb) rb.onclick=async()=>{
+    rb.disabled=true;
+    try{const cropped=i.asset;
+      await ref.update({asset:i.origAsset,w:i.origW||0,h:i.origH||0,origAsset:null,rect:null,cut:"restored",wm:"restored"});
+      try{await assets.delete(cropped)}catch(e){}
+      Object.assign(i,{asset:i.origAsset,w:i.origW||0,h:i.origH||0,origAsset:null,rect:null,cut:"restored",wm:"restored"}); openDetail(i.id); render();
+    }catch(e){rb.disabled=false;st.textContent="คืนรูปเดิมไม่สำเร็จ";st.className="status err"}
+  };
+  $("#dSave").onclick=async()=>{try{await ref.update({note:$("#dNote").value.trim(),tags:parseTags($("#dTags").value),source:$("#dSrc").value.trim()});st.textContent="บันทึกแล้ว";st.className="status"}catch(e){st.textContent="บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง";st.className="status err"}};
+  $("#dFav").onclick=async()=>{try{await ref.update({fav:!i.fav});i.fav=!i.fav;$("#dFav").textContent=i.fav?"★ เลิกชอบ":"☆ ชอบ"}catch(e){st.textContent="อัปเดตไม่สำเร็จ";st.className="status err"}};
+  $("#dDel").onclick=async()=>{
+    if(!confirmDel){confirmDel=true;$("#dDel").textContent="แตะอีกครั้งเพื่อยืนยันลบ";return}
+    try{await ref.delete();try{await assets?.delete(i.asset)}catch(e){};if(i.origAsset){try{await assets?.delete(i.origAsset)}catch(e){}}$("#detVeil").hidden=true}
+    catch(e){st.textContent="ลบไม่สำเร็จ ลองใหม่อีกครั้ง";st.className="status err"}
+  };
+}
+$("#grid").addEventListener("click",e=>{const c=e.target.closest(".card");if(c)openDetail(c.dataset.id)});
+
+
+/* ---------- watermark removal ---------- */
+const INPAINT_SRC = "// Exemplar-based fill (Criminisi-style): fills masked pixels patch by patch,\n// copying the best-matching nearby texture, starting from the edges inward.\nfunction inpaint(d, w, h, mask, opt = {}) {\n  const P = opt.half || Math.max(3, Math.round(Math.min(w, h) / 260)); // patch half-size\n  let x0 = w, y0 = h, x1 = 0, y1 = 0;\n  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (mask[y * w + x]) {\n    if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;\n  }\n  if (x1 < x0) return;\n  const S = opt.search || Math.min(72, Math.max(40, Math.round(Math.max(x1 - x0, y1 - y0) * 0.7)));\n  const conf = new Float32Array(w * h);\n  for (let i = 0; i < w * h; i++) conf[i] = mask[i] ? 0 : 1;\n  // gray image for edge (data) term\n  const gray = new Float32Array(w * h);\n  for (let i = 0; i < w * h; i++) gray[i] = 0.3 * d[i * 4] + 0.59 * d[i * 4 + 1] + 0.11 * d[i * 4 + 2];\n  // valid source centres: whole patch inside image and unmasked (fixed: original mask)\n  const avoid = opt.avoid || mask, W1 = w + 1, I = new Uint32Array((w + 1) * (h + 1));\n  for (let y = 0; y < h; y++) { let s = 0; for (let x = 0; x < w; x++) { s += avoid[y * w + x] ? 1 : 0; I[(y + 1) * W1 + x + 1] = I[y * W1 + x + 1] + s; } }\n  const holeIn = (cx, cy) => { const a = cx - P, b = cy - P, c = cx + P + 1, e = cy + P + 1; return I[e * W1 + c] - I[b * W1 + c] - I[e * W1 + a] + I[b * W1 + a]; };\n  const m = mask.slice();\n  let remaining = 0; for (let i = 0; i < w * h; i++) remaining += m[i];\n  const rx0 = Math.max(P, x0 - 1), ry0 = Math.max(P, y0 - 1), rx1 = Math.min(w - 1 - P, x1 + 1), ry1 = Math.min(h - 1 - P, y1 + 1);\n  let guard = 0;\n  while (remaining > 0 && guard++ < 200000) {\n    // 1. pick the front pixel with highest priority\n    let best = -1, bx = -1, by = -1;\n    for (let y = Math.max(0, y0); y <= Math.min(h - 1, y1); y++) for (let x = Math.max(0, x0); x <= Math.min(w - 1, x1); x++) {\n      const i = y * w + x; if (!m[i]) continue;\n      if (!((x > 0 && !m[i - 1]) || (x < w - 1 && !m[i + 1]) || (y > 0 && !m[i - w]) || (y < h - 1 && !m[i + w]))) continue;\n      let c = 0, n = 0;\n      for (let dy = -P; dy <= P; dy++) { const yy = y + dy; if (yy < 0 || yy >= h) continue;\n        for (let dx = -P; dx <= P; dx++) { const xx = x + dx; if (xx < 0 || xx >= w) continue; c += conf[yy * w + xx]; n++; } }\n      c /= n;\n      // data term: strength of known structure running into the hole\n      let g = 0;\n      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {\n        const xx = x + dx * 2, yy = y + dy * 2; if (xx < 1 || yy < 1 || xx >= w - 1 || yy >= h - 1) continue;\n        const j = yy * w + xx; if (m[j] || m[j - 1] || m[j + 1] || m[j - w] || m[j + w]) continue;\n        const gx = gray[j + 1] - gray[j - 1], gy = gray[j + w] - gray[j - w]; const v = Math.hypot(gx, gy); if (v > g) g = v;\n      }\n      const pr = c * (0.15 + g / 255);\n      if (pr > best) { best = pr; bx = x; by = y; }\n    }\n    if (bx < 0) break;\n    const tx = Math.min(Math.max(bx, P), w - 1 - P), ty = Math.min(Math.max(by, P), h - 1 - P);\n    // 2. best source patch nearby (SSD over target's known pixels)\n    let bs = Infinity, sx = -1, sy = -1;\n    const step = 2;\n    for (let cy = Math.max(P, ty - S); cy <= Math.min(h - 1 - P, ty + S); cy += step)\n      for (let cx = Math.max(P, tx - S); cx <= Math.min(w - 1 - P, tx + S); cx += step) {\n        if (holeIn(cx, cy)) continue;\n        let ssd = 0;\n        for (let dy = -P; dy <= P && ssd < bs; dy++) for (let dx = -P; dx <= P; dx++) {\n          const t = (ty + dy) * w + tx + dx; if (m[t]) continue;\n          const s = (cy + dy) * w + cx + dx, a = t * 4, b = s * 4;\n          const r = d[a] - d[b], gg = d[a + 1] - d[b + 1], bb = d[a + 2] - d[b + 2];\n          ssd += r * r + gg * gg + bb * bb;\n        }\n        // slight preference for nearby sources keeps the fill coherent\n        ssd += ((cx - tx) ** 2 + (cy - ty) ** 2) * 0.5;\n        if (ssd < bs) { bs = ssd; sx = cx; sy = cy; }\n      }\n    if (sx < 0) { // no clean source: average known neighbours\n      const i = by * w + bx; m[i] = 0; remaining--; conf[i] = 0.1; continue;\n    }\n    // 3. copy unknown pixels\n    let cpatch = 0, nk = 0;\n    for (let dy = -P; dy <= P; dy++) for (let dx = -P; dx <= P; dx++) { const t = (ty + dy) * w + tx + dx; cpatch += conf[t]; nk++; }\n    cpatch /= nk;\n    for (let dy = -P; dy <= P; dy++) for (let dx = -P; dx <= P; dx++) {\n      const t = (ty + dy) * w + tx + dx; if (!m[t]) continue;\n      const s = (sy + dy) * w + sx + dx;\n      d[t * 4] = d[s * 4]; d[t * 4 + 1] = d[s * 4 + 1]; d[t * 4 + 2] = d[s * 4 + 2];\n      gray[t] = gray[s]; m[t] = 0; conf[t] = cpatch; remaining--;\n    }\n  }\n}\n";
+let worker=null, jobSeq=0; const jobs=new Map();
+function getWorker(){
+  if(worker) return worker;
+  const code=INPAINT_SRC+`
+  function components(mask,w,h){const lab=new Int32Array(w*h),out=[];let n=0;const st=new Int32Array(w*h);
+    for(let i=0;i<w*h;i++){if(!mask[i]||lab[i])continue;n++;let t=0;st[t++]=i;lab[i]=n;const list=[];
+      while(t){const j=st[--t];list.push(j);const x=j%w;
+        for(const k of [x>0?j-1:-1,x<w-1?j+1:-1,j-w,j+w]){if(k<0||k>=w*h||!mask[k]||lab[k])continue;lab[k]=n;st[t++]=k}}
+      out.push(list)}return out}
+  onmessage=e=>{const {id,d,w,h,mask}=e.data;const px=new Uint8ClampedArray(d),m=new Uint8Array(mask);
+    try{for(const comp of components(m,w,h)){const cm=new Uint8Array(w*h);for(const j of comp)cm[j]=1;inpaint(px,w,h,cm,{avoid:m});for(const j of comp)m[j]=0}
+      postMessage({id,d:px.buffer},[px.buffer])}catch(err){postMessage({id,error:String(err)})}}`;
+  worker=new Worker(URL.createObjectURL(new Blob([code],{type:"text/javascript"})));
+  worker.onmessage=e=>{const j=jobs.get(e.data.id);if(!j)return;jobs.delete(e.data.id);e.data.error?j.rej(e.data.error):j.res(e.data.d)};
+  return worker;
+}
+function inpaintAsync(imgData,mask){
+  const id=++jobSeq;
+  return withTimeout(new Promise((res,rej)=>{jobs.set(id,{res,rej});
+    const d=imgData.data.slice().buffer, m=mask.slice().buffer;
+    getWorker().postMessage({id,d,w:imgData.width,h:imgData.height,mask:m},[d,m]);
+  }),90000,"fill_timeout").catch(e=>{jobs.delete(id);if(e?.code==="fill_timeout"&&worker){worker.terminate();worker=null}throw e}).then(buf=>new ImageData(new Uint8ClampedArray(buf),imgData.width,imgData.height));
+}
+function imgToCanvas(img){const k=Math.min(1,1800/Math.max(img.naturalWidth,img.naturalHeight)),c=document.createElement("canvas");c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);c.getContext("2d",{willReadFrequently:true}).drawImage(img,0,0,c.width,c.height);return c}
+async function canvasToBlob(c){let b=await new Promise(r=>c.toBlob(r,"image/webp",.9));if(!b||b.type!=="image/webp")b=await new Promise(r=>c.toBlob(r,"image/jpeg",.9));return b}
+async function aiOverlays(c){
+  if(aiOff) throw {code:"no_ai"};
+  const sample=await withTimeout(getSample(),12000,"no_ai"); if(!sample) throw {code:"no_ai"};
+  const lim=await sample.limits().catch(()=>null); if(!lim?.images) throw {code:"no_ai"};
+  const k=Math.min(1,1024/Math.max(c.width,c.height)), s=document.createElement("canvas");
+  s.width=Math.round(c.width*k);s.height=Math.round(c.height*k);s.getContext("2d").drawImage(c,0,0,s.width,s.height);
+  const blob=await new Promise(r=>s.toBlob(r,"image/jpeg",.88));
+  const j=await withTimeout(sample.json(
+    "This photo was saved from social media or a website. Find every graphic OVERLAY that was added on top of the photo afterwards: watermarks, studio or shop logos, brand names, @usernames, captions or text, carousel counters like \"1/6\", stickers, price tags, play or UI icons. "+
+    "Do NOT include anything that physically exists in the scene (objects, patterns, glaze, maker's stamps on the pottery, real signage). "+
+    "For each overlay give a tight bounding box as fractions 0-1 of the image width/height, and kind: \"badge\" if the text sits on a solid or semi-transparent shape (pill, box, sticker), or \"text\" if the letters or logo are drawn directly over the photo. "+
+    "Reply with JSON only: {\"overlays\":[{\"x0\":0,\"y0\":0,\"x1\":0,\"y1\":0,\"kind\":\"text\"}]} — an empty list if there are none.",
+    {images:[blob],modelTier:"default"}).catch(e=>{throw e}), 45000, "ai_timeout").catch(e=>{noteAiErr(e);throw e});
+  const ok=v=>typeof v==="number"&&isFinite(v);
+  return (Array.isArray(j?.overlays)?j.overlays:[]).filter(o=>[o.x0,o.y0,o.x1,o.y1].every(ok)).map(o=>({
+    x0:clamp(Math.min(o.x0,o.x1),0,1),y0:clamp(Math.min(o.y0,o.y1),0,1),x1:clamp(Math.max(o.x0,o.x1),0,1),y1:clamp(Math.max(o.y0,o.y1),0,1),kind:o.kind==="badge"?"badge":"text"
+  })).filter(o=>(o.x1-o.x0)*(o.y1-o.y0)<.2&&o.x1-o.x0>.003&&o.y1-o.y0>.003);
+}
+// overlay boxes -> pixel mask. badge: the whole shape; text: only the letters (pixels that stand out from the box's surroundings)
+function overlayMask(id,ovs){
+  const {data:d,width:w,height:h}=id, mask=new Uint8Array(w*h), lum=i=>.3*d[i*4]+.59*d[i*4+1]+.11*d[i*4+2];
+  const sat=i=>Math.max(d[i*4],d[i*4+1],d[i*4+2])-Math.min(d[i*4],d[i*4+1],d[i*4+2]);
+  for(const o of ovs){
+    const bw=(o.x1-o.x0)*w, bh=(o.y1-o.y0)*h, pad=o.kind==="badge"?.08:.18;
+    const a=Math.max(0,Math.floor(o.x0*w-bw*pad-2)),b=Math.max(0,Math.floor(o.y0*h-bh*pad-2)),c=Math.min(w,Math.ceil(o.x1*w+bw*pad+2)),e=Math.min(h,Math.ceil(o.y1*h+bh*pad+2));
+    if(o.kind==="badge"){for(let y=b;y<e;y++)for(let x=a;x<c;x++)mask[y*w+x]=1;continue}
+    const ring=[];for(let x=a;x<c;x++){ring.push(b*w+x,(e-1)*w+x)}for(let y=b;y<e;y++){ring.push(y*w+a,y*w+c-1)}
+    const v=ring.map(lum).sort((p,q)=>p-q),med=v[v.length>>1];
+    const raw=new Uint8Array(w*h);let hits=0;
+    for(let y=b;y<e;y++)for(let x=a;x<c;x++){const i=y*w+x;if(Math.abs(lum(i)-med)>40&&sat(i)<90){raw[i]=1;hits++}}
+    if(hits>(c-a)*(e-b)*.6){for(let y=b;y<e;y++)for(let x=a;x<c;x++)mask[y*w+x]=1;continue} // reads as a solid shape after all
+    const R=Math.max(3,Math.round(Math.min(w,h)/300));
+    for(let y=Math.max(0,b-R);y<Math.min(h,e+R);y++)for(let x=Math.max(0,a-R);x<Math.min(w,c+R);x++){
+      let on=0;for(let dy=-R;dy<=R&&!on;dy++){const yy=y+dy;if(yy<0||yy>=h)continue;for(let dx=-R;dx<=R;dx++){const xx=x+dx;if(xx>=0&&xx<w&&raw[yy*w+xx]){on=1;break}}}
+      if(on)mask[y*w+x]=1}
+  }
+  return mask;
+}
+// whole pipeline on one image: find overlays with AI, fill them in. Resolves {blob,w,h} or null when there is nothing to remove.
+async function autoErase(img){
+  const c=imgToCanvas(img), ctx=c.getContext("2d");
+  const ovs=await aiOverlays(c); if(!ovs.length) return null;
+  const id=ctx.getImageData(0,0,c.width,c.height), mask=overlayMask(id,ovs);
+  ctx.putImageData(await inpaintAsync(id,mask),0,0);
+  return {blob:await canvasToBlob(c),w:c.width,h:c.height};
+}
+
+/* eraser sheet (manual brush + AI) */
+let er=null; // {ideaId, base:ImageData, prev:ImageData|null, dirty}
+const eCan=$("#eCan"), eMask=$("#eMask");
+function eMsg(t,err){const s=$("#eStatus");s.textContent=t;s.className="status"+(err?" err":"")}
+async function openEraser(i){
+  const img=await loadImg(blobUrl(i.asset));
+  const src=imgToCanvas(img);
+  eCan.width=eMask.width=src.width; eCan.height=eMask.height=src.height;
+  eCan.getContext("2d").drawImage(src,0,0); eMask.getContext("2d").clearRect(0,0,eMask.width,eMask.height);
+  er={ideaId:i.id,prev:null,dirty:false,busy:false};
+  $("#eUndo").disabled=true;$("#eSave").disabled=true;eMsg("");
+  $("#eraseVeil").hidden=false;
+  getSample().then(s=>s?s.limits().catch(()=>null):null).then(l=>{$("#eAI").hidden=!l?.images});
+}
+function closeEraser(){if(er?.busy)return;$("#eraseVeil").hidden=true;er=null}
+$("#eraseX").onclick=closeEraser;
+$("#eClear").onclick=()=>eMask.getContext("2d").clearRect(0,0,eMask.width,eMask.height);
+let painting=null;
+function paintAt(e){
+  const r=eMask.getBoundingClientRect(), k=eMask.width/r.width, x=(e.clientX-r.left)*k, y=(e.clientY-r.top)*k;
+  const g=eMask.getContext("2d"), rad=(+$("#eSize").value)*k/2;
+  g.fillStyle="#ff2a2a";g.strokeStyle="#ff2a2a";g.lineCap="round";g.lineWidth=rad*2;
+  if(painting.last){g.beginPath();g.moveTo(painting.last.x,painting.last.y);g.lineTo(x,y);g.stroke()}
+  g.beginPath();g.arc(x,y,rad,0,Math.PI*2);g.fill(); painting.last={x,y};
+}
+eMask.addEventListener("pointerdown",e=>{if(!er||er.busy)return;e.preventDefault();eMask.setPointerCapture(e.pointerId);painting={last:null};paintAt(e)});
+eMask.addEventListener("pointermove",e=>{if(painting)paintAt(e)});
+const stopPaint=()=>{painting=null};eMask.addEventListener("pointerup",stopPaint);eMask.addEventListener("pointercancel",stopPaint);
+$("#eAI").onclick=async()=>{
+  if(!er||er.busy)return; er.busy=true; $("#eAI").disabled=true; eMsg("AI กำลังหาลายน้ำ…");
+  try{
+    const id=eCan.getContext("2d").getImageData(0,0,eCan.width,eCan.height);
+    const ovs=await aiOverlays(eCan);
+    if(!ovs.length){eMsg("AI ไม่เจอลายน้ำในรูปนี้ ถ้ายังเห็นอยู่ ทาสีแดงทับเองได้เลย");return}
+    const m=overlayMask(id,ovs), g=eMask.getContext("2d"), md=g.getImageData(0,0,eMask.width,eMask.height);
+    for(let i=0;i<m.length;i++)if(m[i]){md.data[i*4]=255;md.data[i*4+1]=42;md.data[i*4+2]=42;md.data[i*4+3]=255}
+    g.putImageData(md,0,0); eMsg(`เจอ ${ovs.length} จุด ทาสีแดงไว้ให้แล้ว ตรวจดูแล้วกด "ลบส่วนที่ทา"`);
+  }catch(e){eMsg(e?.code==="rate_limited"?"ใช้ AI ถี่เกินไป รอสักครู่":e?.code==="no_ai"||e?.code==="not_granted"?"ยังไม่ได้อนุญาตให้ใช้ AI ในหน้านี้ ทาสีแดงเองได้เลย":"AI หาไม่สำเร็จ ทาสีแดงเองได้เลย",true)}
+  finally{if(er)er.busy=false;$("#eAI").disabled=false}
+};
+$("#eRun").onclick=async()=>{
+  if(!er||er.busy)return;
+  const md=eMask.getContext("2d").getImageData(0,0,eMask.width,eMask.height).data, m=new Uint8Array(eMask.width*eMask.height);
+  let n=0;for(let i=0;i<m.length;i++)if(md[i*4+3]>0){m[i]=1;n++}
+  if(!n){eMsg("ยังไม่ได้ทาสีแดงตรงไหนเลย",true);return}
+  er.busy=true;$("#eRun").disabled=true;eMsg("กำลังลบ…");
+  try{
+    const ctx=eCan.getContext("2d"), id=ctx.getImageData(0,0,eCan.width,eCan.height);
+    er.prev=id; ctx.putImageData(await inpaintAsync(id,m),0,0);
+    eMask.getContext("2d").clearRect(0,0,eMask.width,eMask.height);
+    er.dirty=true;$("#eUndo").disabled=false;$("#eSave").disabled=false;eMsg("ลบแล้ว ถ้ายังเหลือร่องรอย ทาซ้ำแล้วลบอีกรอบได้");
+  }catch(e){eMsg("ลบไม่สำเร็จ ลองทาให้เล็กลงแล้วลองใหม่",true)}
+  finally{if(er)er.busy=false;$("#eRun").disabled=false}
+};
+$("#eUndo").onclick=()=>{if(!er?.prev)return;eCan.getContext("2d").putImageData(er.prev,0,0);er.prev=null;$("#eUndo").disabled=true;eMsg("ย้อนกลับแล้ว")};
+$("#eSave").onclick=async()=>{
+  if(!er||er.busy||!er.dirty)return; er.busy=true;$("#eSave").disabled=true;eMsg("กำลังบันทึก…");
+  try{
+    const i=ideas.find(x=>x.id===er.ideaId), blob=await canvasToBlob(eCan), up=await assets.upload(blob);
+    const patch={asset:up.id,w:eCan.width,h:eCan.height,wm:true};
+    if(!i.origAsset) Object.assign(patch,{origAsset:i.asset,origW:i.w||eCan.width,origH:i.h||eCan.height});
+    else { try{await assets.delete(i.asset)}catch(e){} }
+    await db.collection("ideas").doc(i.id).update(patch); Object.assign(i,patch);
+    er.busy=false; closeEraser(); openDetail(i.id); render();
+  }catch(e){er.busy=false;$("#eSave").disabled=false;eMsg(UPLOAD_MSG[e?.code]||"บันทึกไม่สำเร็จ ลองใหม่อีกครั้ง",true)}
+};
+
+/* ---------- re-cut saved ideas ---------- */
+async function recut(i,img,rect){
+  // img shows the original screenshot (i.origAsset if we have one, else the current asset)
+  const out=await cropToBlob(img,rect), up=await assets.upload(out.blob);
+  const patch={asset:up.id,w:out.w,h:out.h,rect,cut:true};
+  if(!i.origAsset) Object.assign(patch,{origAsset:i.asset,origW:i.w||img.naturalWidth,origH:i.h||img.naturalHeight});
+  else { try{await assets.delete(i.asset)}catch(e){} }
+  await db.collection("ideas").doc(i.id).update(patch);
+  Object.assign(i,patch);
+}
+let batch=null; // {done,total,cut,clean,check}
+function todo(){return ideas.filter(i=>!i.cut)}
+function renderBatch(){
+  const box=$("#batchBox"); if(!box) return;
+  if(!canWrite){box.innerHTML="";return}
+  if(batch){box.innerHTML=`<div class="batch"><p>กำลังตัดกรอบรูปเดิม ${batch.done}/${batch.total} รูป… อย่าเพิ่งปิดหน้านี้</p></div>`;return}
+  const n=todo().length;
+  box.innerHTML=n?`<div class="batch"><p><b>${n} รูปที่เก็บไว้ก่อนหน้า</b> ยังไม่ได้ตัดกรอบหน้าจอแคป ระบบเก็บรูปต้นฉบับไว้ให้กดคืนได้ทุกรูป</p><button class="primary" id="batchGo">✂ ตัดกรอบรูปเดิมทั้งหมด</button></div>`:"";
+  const b=$("#batchGo"); if(b) b.onclick=runBatch;
+}
+async function runBatch(){
+  const list=todo(); if(!list.length) return;
+  batch={done:0,total:list.length,cut:0,clean:0,check:0,wm:0}; renderBatch();
+  const ref=id=>db.collection("ideas").doc(id);
+  for(const i of list){
+    try{
+     if(!i.cut){
+      const img=await loadImg(blobUrl(i.asset));
+      const res=detectPhoto(img);
+      if(res.ok&&res.full){await ref(i.id).update({cut:true});i.cut=true;batch.clean++}
+      else{
+        let rect=res.ok?res.rect:null;
+        if(!rect) rect=await aiDetect(img).catch(()=>null);
+        if(rect){await recut(i,img,rect);batch.cut++}
+        else{await ref(i.id).update({cut:"check"});i.cut="check";batch.check++}
+      }
+     }
+     if(false){
+      const img=await loadImg(blobUrl(i.asset)), out=await autoErase(img).catch(e=>{if(e?.code==="rate_limited"||e?.code==="no_ai"||e?.code==="not_granted")throw e;return undefined});
+      if(out===undefined){} // AI hiccup on this one: leave it for the next run
+      else if(!out){await ref(i.id).update({wm:"none"});i.wm="none"}
+      else{
+        const up=await assets.upload(out.blob), patch={asset:up.id,w:out.w,h:out.h,wm:true};
+        if(!i.origAsset) Object.assign(patch,{origAsset:i.asset,origW:i.w||out.w,origH:i.h||out.h});
+        else { try{await assets.delete(i.asset)}catch(e){} }
+        await ref(i.id).update(patch); Object.assign(i,patch); batch.wm++;
+      }
+     }
+    }catch(e){ if(e?.code==="rate_limited"||e?.code==="no_ai"||e?.code==="not_granted"){batch.stop=e.code;batch.done++;break} batch.check++ }
+    batch.done++; renderBatch();
+  }
+  const r=batch; batch=null;
+  const why=r.stop==="rate_limited"?" · AI ถูกใช้ถี่เกินไป รอสักครู่แล้วกดอีกครั้งเพื่อทำรูปที่เหลือ":r.stop?" · ยังไม่ได้อนุญาตให้ใช้ AI ลายน้ำจึงยังไม่ถูกลบ กดอีกครั้งแล้วเลือกอนุญาต":"";
+  $("#notice").innerHTML=`<div class="notice">ตัดกรอบ ${r.cut} รูป${r.check?` · ต้องจัดการเอง ${r.check} รูป (มีป้าย "ตัดเอง")`:""}${why} · รูปไหนไม่ถูกใจ แตะเปิดแล้วกด ↩ รูปเดิม</div>`;
+  render();
+}
+
+/* ---------- backend: Supabase edge functions, shaped like the old in-Claude store ---------- */
+const API_BASE = "https://ocrclgkwbquwcojybqrn.supabase.co/functions/v1";
+let PASS = "";
+try { PASS = localStorage.getItem("ideasPass") || ""; } catch (e) {}
+const urlCache = new Map(); // storage path -> displayable URL
+
+async function call(fn, body) {
+  const r = await fetch(`${API_BASE}/${fn}`, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-passcode": PASS },
+    body: JSON.stringify(body),
+  });
+  let j = null; try { j = await r.json(); } catch (e) {}
+  if (!r.ok) throw { code: j?.error || "http_" + r.status, status: r.status };
+  return j;
+}
+function blobUrl(path) { return urlCache.get(path) || ""; }
+
+const parseFlag = v => v === "true" ? true : v === "false" || v == null ? false : v;
+const putFlag = v => v === true ? "true" : v === false || v == null ? null : String(v);
+function toLocal(r) {
+  if (r.url) urlCache.set(r.image_path, r.url);
+  if (r.orig_path && r.orig_url) urlCache.set(r.orig_path, r.orig_url);
+  return {
+    id: r.id, asset: r.image_path, origAsset: r.orig_path || null,
+    w: r.w || 0, h: r.h || 0, origW: r.orig_w || 0, origH: r.orig_h || 0, rect: r.rect || null,
+    note: r.note || "", tags: r.tags || [], source: r.source || "", fav: !!r.fav,
+    cut: parseFlag(r.cut), wm: parseFlag(r.wm), createdAt: Date.parse(r.created_at), importKey: r.import_key || null,
+  };
+}
+const MAP = { asset: "image_path", origAsset: "orig_path", w: "w", h: "h", origW: "orig_w", origH: "orig_h", rect: "rect", note: "note", tags: "tags", source: "source", fav: "fav", cut: "cut", wm: "wm" };
+function toServer(o) {
+  const out = {};
+  for (const [k, v] of Object.entries(o)) {
+    if (!(k in MAP)) continue;
+    out[MAP[k]] = (k === "cut" || k === "wm") ? putFlag(v) : (v === undefined ? null : v);
+  }
+  return out;
+}
+
+// the page keeps one live list and re-renders on every change
+let rows = [], listeners = [];
+function emit() {
+  rows.sort((a, b) => b.createdAt - a.createdAt);
+  const snap = { docs: rows.map(r => ({ id: r.id, data: () => { const { id, ...rest } = r; return rest; } })) };
+  listeners.forEach(fn => fn(snap));
+}
+function upsert(local) { const k = rows.findIndex(r => r.id === local.id); if (k < 0) rows.push(local); else rows[k] = local; emit(); }
+
+db = {
+  collection() {
+    const col = {
+      orderBy() { return col; },
+      onSnapshot(next) { listeners.push(next); emit(); return () => { listeners = listeners.filter(f => f !== next); }; },
+      async add(doc) { const { idea } = await call("api", { action: "insert", row: toServer(doc) }); upsert(toLocal(idea)); },
+      doc(id) {
+        return {
+          async update(patch) { const { idea } = await call("api", { action: "update", id, patch: toServer(patch) }); upsert(toLocal(idea)); },
+          async delete() { await call("api", { action: "delete", id }); rows = rows.filter(r => r.id !== id); emit(); },
+        };
+      },
+    };
+    return col;
+  },
+};
+assets = {
+  async upload(blob) {
+    const type = ["image/webp", "image/jpeg", "image/png"].includes(blob.type) ? blob.type : "image/jpeg";
+    const { path, signedUrl } = await call("api", { action: "uploadUrl", type });
+    const fd = new FormData(); fd.append("cacheControl", "3600"); fd.append("", blob);
+    const r = await fetch(signedUrl, { method: "PUT", body: fd, headers: { "x-upsert": "false" } });
+    if (!r.ok) throw { code: r.status === 413 ? "too_large" : "upload_failed" };
+    urlCache.set(path, URL.createObjectURL(blob));
+    return { id: path };
+  },
+  async delete() { /* the server removes files an idea no longer points at */ },
+};
+
+// AI: the old page called Claude inside the app; here it goes through our own function
+let aiReady = false;
+const blobToB64 = b => new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(String(fr.result).split(",")[1]); fr.onerror = rej; fr.readAsDataURL(b); });
+const SAMPLE = {
+  async limits() { return {}; },
+  async json(prompt, opts) {
+    throw { code: "no_ai" };
+    const img = (opts?.images || [])[0];
+    const mode = /OVERLAY/.test(prompt) ? "overlays" : "photo";
+    try {
+      const { result } = await call("ai", { mode, image: await blobToB64(img), mediaType: img.type || "image/jpeg" });
+      return result;
+    } catch (e) {
+      if (e?.code === "no_ai") aiReady = false;
+      throw e;
+    }
+  },
+};
+samplePromise = Promise.resolve(SAMPLE);
+
+/* ---------- import a zip exported from the in-Claude library ---------- */
+const TYPE = { webp: "image/webp", jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", gif: "image/gif" };
+async function uploadEntry(zip, name) {
+  const f = name && zip.file(name); if (!f) return null;
+  const ext = name.split(".").pop().toLowerCase();
+  const blob = new Blob([await f.async("arraybuffer")], { type: TYPE[ext] || "image/jpeg" });
+  return (await assets.upload(blob)).id;
+}
+let importing = false;
+async function importZip(file) {
+  if (importing) return; importing = true;
+  const note = t => { $("#notice").innerHTML = `<div class="notice">${t}</div>`; };
+  try {
+    if (!window.JSZip) throw { code: "nozip" };
+    const zip = await JSZip.loadAsync(file);
+    const man = JSON.parse(await zip.file("manifest.json").async("string"));
+    const items = (man.ideas || []).slice().reverse(); // oldest first keeps the original order
+    const have = new Set(rows.map(r => r.importKey).filter(Boolean));
+    let done = 0, skipped = 0, failed = 0;
+    for (const it of items) {
+      note(`กำลังนำเข้า ${done + skipped + failed + 1}/${items.length} รูป… อย่าเพิ่งปิดหน้านี้`);
+      if (have.has(it.key)) { skipped++; continue; }
+      try {
+        const image_path = await uploadEntry(zip, it.image);
+        if (!image_path) throw 0;
+        const orig_path = await uploadEntry(zip, it.orig).catch(() => null);
+        const row = { ...toServer({ asset: image_path, origAsset: orig_path, w: it.w, h: it.h, origW: it.origW, origH: it.origH, rect: it.rect, note: it.note, tags: it.tags, source: it.source, fav: it.fav, cut: it.cut, wm: it.wm }),
+          created_at: it.createdAt ? new Date(it.createdAt).toISOString() : undefined, import_key: it.key };
+        const { idea } = await call("api", { action: "insert", row });
+        rows.push(toLocal(idea)); have.add(it.key); done++;
+        if (done % 5 === 0) emit();
+      } catch (e) { failed++; }
+    }
+    emit();
+    note(`นำเข้าแล้ว ${done} รูป${skipped ? ` · มีอยู่แล้ว ${skipped} รูป (ข้าม)` : ""}${failed ? ` · ไม่สำเร็จ ${failed} รูป กดนำเข้าไฟล์เดิมอีกครั้งเพื่อลองเฉพาะรูปที่ขาด` : ""}`);
+  } catch (e) {
+    note(e?.code === "nozip" ? "โหลดตัวอ่านไฟล์ zip ไม่สำเร็จ โหลดหน้าใหม่แล้วลองอีกครั้ง" : "ไฟล์นี้ไม่ใช่ไฟล์ที่ส่งออกจากคลังเดิม เลือกไฟล์ ceramic-ideas-….zip");
+  } finally { importing = false; }
+}
+$("#importBtn").onclick = () => $("#importFile").click();
+$("#importFile").onchange = e => { const f = e.target.files[0]; e.target.value = ""; if (f) importZip(f); };
+
+/* ---------- boot ---------- */
+async function start() {
+  try { await call("api", { action: "ping" }); }
+  catch (e) {
+    $("#login").hidden = false; $("#tools").hidden = true; $("#addBtn").hidden = true;
+    $("#count").textContent = "ต้องใส่รหัสผ่านก่อน";
+    if (PASS) $("#loginStatus").textContent = e?.code === "unauthorized" ? "รหัสผ่านไม่ถูกต้อง" : e?.code === "not_configured" ? "ยังไม่ได้ตั้งรหัสผ่านของคลังใน Supabase" : "เชื่อมต่อคลังไม่ได้ ลองใหม่อีกครั้ง";
+    $("#loginStatus").className = "status err";
+    return;
+  }
+  $("#login").hidden = true; $("#signout").hidden = !PASS;
+  canWrite = true; $("#addBtn").hidden = false; $("#importBtn").hidden = false;
+  const { ideas: list } = await call("api", { action: "list" });
+  rows = list.map(toLocal);
+  db.collection("ideas").orderBy("createdAt", "desc").onSnapshot(s => { ideas = s.docs.map(d => ({ id: d.id, ...d.data() })); render(); });
+  // signed links expire after 6 hours: refresh them for pages left open
+  setInterval(async () => { try { const { ideas: l } = await call("api", { action: "list" }); rows = l.map(toLocal); emit(); } catch (e) {} }, 5 * 60 * 60 * 1000);
+}
+$("#loginForm").addEventListener("submit", e => {
+  e.preventDefault();
+  PASS = $("#pass").value.trim();
+  try { localStorage.setItem("ideasPass", PASS); } catch (_) {}
+  $("#loginStatus").textContent = "กำลังเปิด…"; $("#loginStatus").className = "status";
+  start();
+});
+$("#signout").onclick = () => { try { localStorage.removeItem("ideasPass"); } catch (e) {} location.reload(); };
+render();
+start().catch(() => { $("#notice").innerHTML = '<div class="notice">เปิดคลังไม่สำเร็จ โหลดหน้าใหม่อีกครั้ง</div>'; });
+</script>
+</body>
+</html>
